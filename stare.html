@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stare</title>
+  <style>
+    body {
+      background-color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    #container div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        height: 100%;
+    }
+
+    #container div:nth-child(odd) p {
+        animation: 3s linear infinite scroll;
+    }
+
+    #container div:nth-child(odd) {
+        transform-origin: center;
+        transform: rotate(1deg);
+    }
+
+    #container div:nth-child(even) p {
+        animation: 3s reverse linear infinite scroll;
+    }
+
+    #container div:nth-child(even) {
+        transform-origin: center;
+        transform: rotate(-1deg);
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-100%);
+        }
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+
+</div>
+<script>
+    let numbers = ["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#666666", "#777777", "#888888", "#999999", "#AAAAAA", "#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE", "#FFFFFF"];
+
+    for (let i = 0; i < numbers.length; i++) {
+        let div = document.createElement("div");
+        div.style.color = numbers[i];
+        for (let j = 0; j < 50; j++) {
+            let p = document.createElement("p");
+            p.textContent = numbers[i];
+            p.style.margin = "0";
+            div.appendChild(p);
+        }
+        document.getElementById("container").appendChild(div);
+    }
+
+    function updateBG(e) {
+        let x = e.clientX;
+        let width = window.innerWidth;
+        let scaledPosition = 255- Math.round(x / width * 255);
+        document.body.style.backgroundColor = `rgb(${scaledPosition}, ${scaledPosition}, ${scaledPosition})`;
+    }
+
+    window.onmousemove = updateBG;
+</script>
+</body>
+</html>
